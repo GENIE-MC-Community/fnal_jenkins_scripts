@@ -55,6 +55,14 @@ do
   make
 done
 
+# get validation data
+pushd $GENIE/data
+if [[ ! -d validation ]]; then
+  git clone https://github.com/GENIEMC/legacy_validation_data.git
+  mv legacy_validation_data validation
+fi
+popd
+
 cd $GENIE
 
 mkdir -p /scratch/workspace/jenkinsTest/genie_builds/
@@ -62,3 +70,4 @@ mkdir -p /scratch/workspace/jenkinsTest/genie_builds/
 TAG=`basename $GENIE_VERSION`
 
 tar -zcf /scratch/workspace/jenkinsTest/genie_builds/genie_$TAG'_buildmaster_'$DATE'.tgz' --exclude=".*" *
+
